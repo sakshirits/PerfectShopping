@@ -1,0 +1,22 @@
+{% extends "shop/base.html" %}
+{%load staticfiles%}
+{%block title%}
+OrderConfirmation
+
+{%endblock%}
+{%block content%}
+<div>
+    <div class="text-center pt-5">
+        <br/><br/><br/>
+
+        <h1 class="text-center">Thanks for placing your order</h1>
+        <br/><br/>
+        <p>Your order numbei is: {{customer_order.id}}</p>
+        <br/>
+        <p>We have received your order and will begin its processing right away. An email confirmation has been sent to you. It contains the details of the items you purchased</p>
+
+    </div>
+</div>
+<br/>
+
+{%endblock%}

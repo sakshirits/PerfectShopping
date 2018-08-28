@@ -1,0 +1,54 @@
+{% extends "shop/base.html" %}
+{%load staticfiles%}
+{%block metadescription%}
+
+We have a variety of beautiful sarees for all occasions. Look for the one that suits your needs
+{%endblock%}
+{%block title%}
+Search
+
+{%endblock%}
+{%block content%}
+
+       <div class="container">
+
+           <br/> <br/> <br/> <br/>
+<div class="text-center pt-40">
+You have searched for : <b> "{{query}}"</b>
+</div>
+
+<div class="album py-7 bg-light">
+
+
+          <div class="row mx-auto pt-20">
+              {%for product in products%}
+            <div class="col-md-4" >
+              <div class="card mb-10 box-shadow" style="margin-bottom: 20px;">
+              <a href="{{product.get_url}}">  <img src="{{product.image.url}}" width="200" height="400" class ="card-img-top text-center" alt="Responsive image" ></a>
+                <div class="card-body">
+                  <p class="card-text text-monospace col-40 text-truncate">{{product.name}}</p>
+
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5>{{product.price}}</h5>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+              {%empty%}
+                <div class="row mx-auto">
+                    <p class="text-center"> 0 results found</p>
+                </div>
+
+
+
+
+
+
+
+{%endfor%}
+</div>
+</div>
+</div>
+
+{%endblock%}

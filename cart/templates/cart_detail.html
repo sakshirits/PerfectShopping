@@ -1,0 +1,136 @@
+{% extends "shop/base.html" %}
+{%load staticfiles%}
+{%block metadescription%}
+
+We have a variety of beautiful sarees for all occasions. Look for the one that suits your needs
+{%endblock%}
+{%block title%}
+Your Cart
+
+{%endblock%}
+{%block content%}
+{%if not cart_items%}
+ <div>
+     <div text="center">
+        <h1>Your Shopping Cart is Empty.
+        </h1> <br/>
+         <p class="text-center">Please click <a href="{%url 'shop:allProd_Cat'%}">here </a> to continue shopping</a> </p>
+
+     </div>
+
+{%else%}
+<div>
+     <div text="center">
+           <br/><br/><br/><br/>
+         <h1 class="text-center"> Your shopping cart</h1>
+
+          </div>
+ </div>
+
+<div class="row mx-auto">
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+    <div class="table" style="font-size: 14px; min-width: 400px;">
+
+      <table>
+        <thead>
+        <tr>
+        <th colspan="6" class="jumbotron">
+            Your Items
+
+        </th>
+</tr> </thead>
+        <tbody>
+        {%for item in cart_items%}
+        <tr>
+            <td>
+                <a href="item.product.get_absolute_url"><img src="{{item.product.image.url}}" class="d-inline-block align-top col-6" style="width:30 ;height:30;"> </a>
+
+            </td>
+            <td>
+                {{item.product.name}} <br/>
+                {{item.product.id}}  <br/>
+              Unit Price:  {{item.product.price}} <br/>
+                Qty: {{item.quantity}}<br/>
+
+            </td>
+            <td>
+                Sub Total: {{item.subtotal}}
+            </td>
+            {% if item.quantity < item.product.stock%}
+            <td>
+                <a href="{%url 'cart:add_cart' item.product.id%}"><img src="{%static 'add.png'%}"> </a>
+                </td>
+             <td>   <a href="{%url 'cart:cart_remove' item.product.id%}"><img src="{%static 'minus.png'%}"> </a>
+             </td>
+             <td>
+             <a href="{%url 'cart:cart_delete' item.product.id%}"> <img src="{%static 'recycle-bin.png'%}"> </a>
+             </td>
+
+
+            {%else%}
+            <td>
+            <a href="{%url 'cart:cart_remove' item.product.id%}"><img src="{%static 'minus.png'%}"> </a></td>
+              <td>  <a href="{%url 'cart:cart_delete' item.product.id%}"><img src="{%static 'recycle-bin.png'%}"> </a></td>
+
+            <td></td>
+        </tr>
+{%endif%}
+
+        </tbody>
+          {%endfor%}
+      </table>
+
+    </div>
+   </div>
+
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+    <div class="table" style="font-size: 14px; min-width: 400px;">
+        <table>
+            <thead>
+            <tr>
+                <th colspan="8" class="jumbotron">Checkout</th></tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Please review your shopping cart before proceeding with the order</td>
+                <td>Total items: {{counter}}</td>
+            </tr>
+            <tr>
+                <td class="text-left">
+                    Your total is: <strong>{{total}}</strong>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+         </div>
+        <br/>  <br/> <br/> <br/>
+        <div class="mx-auto">
+            <form action="" method="POST">
+                {%csrf_token%}
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button btn-block" style="width:100% !important; display:block !important;"
+    data-key="{{data_key}}"
+    data-amount="{{stripe_total}}"
+    data-name="Vkart"
+    data-description="{{description}}"
+    data-image="{%static 'logo.jpg'%}"
+    data-locale="auto"
+    data-currency="inr"
+    data-shipping-address="true"
+    data-billing-address="true"
+    data-zip-code="true">
+
+  </script>
+</form>
+<br/>
+            <a href="{%url 'shop:allProd_Cat'%}" class="btn btn-secondary btn-block">Continue Shopping</a>
+
+</div>
+</div>
+        </div>
+     </div>
+   {%endif%}
+{%endblock%}

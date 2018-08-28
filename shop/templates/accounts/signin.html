@@ -1,0 +1,37 @@
+{% extends "shop/base.html" %}
+{%load staticfiles%}
+{%load crispy_forms_tags %}
+{%block title%}
+Signin
+
+{%endblock%}
+{%block content%}
+<div class="container">
+    <div class="text center pt-5">
+    <br>
+    <h1>Login or Create a new account</h1>  <br>
+</div>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center" sty;e="margin-bottom:20px;">  <br>
+<h2> New Customer </h2>   <br>
+        <p>Please click here <a href="{%url 'signup'%}"> Register account </a> to register your account with is</p>
+
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center" sty;e="margin-bottom:20px;"> <br>
+        <h2>Registered Customers Only</h2>
+        <form method="post">
+            {%csrf_token%}
+            <p>{{form |crispy}}</p>
+            <button type ='submit' class="btn btn-secondary">LogIn</button>
+
+        </form>
+        <br></div><br><br>
+</div>
+</div>
+<br/>
+
+
+
+
+</div>
+{%endblock%}

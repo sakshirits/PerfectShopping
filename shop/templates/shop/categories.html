@@ -1,0 +1,79 @@
+{% extends "shop/base.html" %}
+{%load staticfiles%}
+
+{%block metadescription%}
+{%if category%}
+{{category.description}}
+{%else%}
+Welcome to the Shopping Cart portal to buy fancy sarees
+{%endif%}
+{%endblock%}
+{%block title%}
+{%if category%}
+{{category.name}} -Perfect Shopping Portal
+{%else%}
+See our Saree Collection -Perfect Shopping Portal
+{%endif%}
+{%endblock%}
+{%block content%}
+<div class ="container">
+
+{%if category%}
+
+
+   <div>
+
+
+<br/><br/><br/>
+        <div>
+     <p>      <a href="{%url 'shop:allProd_Cat'%}">Our Product Collection </a>{{category.name}}</p>
+        </div>
+
+     <img class="my_image" src="{{category.image.url}}" width="100%" height="auto" class="d-inline-block align-top "/>
+   </div><br/>
+<div>
+    <h1 class="text-center my_title_cat">{{category.name}}</h1>
+    <p class="text-center"> {{category.description}}</p>
+</div>
+    {%else%}
+    <img src="{%static 'ad_home.jpg'%}" width="1200" class="pt-5 my_home">
+
+<div class="container">
+    <h1>Our Product Collection</h1>
+    <p class="font-weight-bold">Visit our website to get good quality products at a very reasonable price </p>
+
+
+    </div>
+{%endif%}
+
+<div class="album py-7 bg-light">
+        <div class="container">
+
+          <div class="row mx-auto">
+              {%for product in product_by_category%}
+            <div class="col-md-4" >
+              <div class="card mb-10 box-shadow" style="margin-bottom: 20px;">
+              <a href="{{product.get_url}}">  <img src="{{product.image.url}}" width="200" height="400" class ="card-img-top text-center" alt="Responsive image" ></a>
+                <div class="card-body">
+                  <p class="card-text text-monospace col-40 text-truncate">{{product.name}}</p>
+
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5>{{product.price}}</h5>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+
+{%endfor%}
+</div>
+</div>
+</div>
+
+    {%endblock%}
